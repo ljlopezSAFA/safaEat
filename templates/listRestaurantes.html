@@ -1,17 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Listar Restaurantes</title>
-</head>
-<body>
 
+{% include "barra_navegacion.html" %}
+
+<table class="table">
+  <thead>
+  <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Ciudad</th>
+      <th scope="col">Tipo Comida</th>
+      <th scope="col">Capacidad</th>
+      <th scope="col">Fecha Fundación</th>
+  </tr>
+  </thead>
+  <tbody>
     {% for rest in restaurantes %}
-
-        <p> {{ rest.nombre }}</p>
-
+        <tr>
+            <td>{{ rest.nombre }}</td>
+            <td>{{ rest.ciudad }}</td>
+            <td>{{ rest.tipo }}</td>
+            <td>{{ rest.capacidad }}</td>
+            <td>{{ rest.fecha_fundacion|date:'d/m/Y'}}</td>
+        </tr>
     {% endfor %}
-
-
-</body>
-</html>
+  </tbody>
+</table>

@@ -7,4 +7,6 @@ from .views import *
 urlpatterns = [
     path('', cargar_pagina_inicio),
     path('restaurantes/', listar_restaurantes),
+    path('buscar/', buscar_restaurante),
+    path('restaurantes/crear', crear_restaurante),
 ]

@@ -1,0 +1,40 @@
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>SafaEat</title>
+  	  {# Cargamos la librería #}
+	  {% load bootstrap4 %}
+
+	  {# CSS Bootstrap #}
+	  {% bootstrap_css %}
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/safaEat">SafaEat</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/safaEat/restaurantes">Restaurantes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/safaEat/buscar?restaurante=KFC">Buscar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/safaEat/restaurantes/crear">Crear Restaurante</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+
+{% endblock %}

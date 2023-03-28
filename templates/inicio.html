@@ -1,13 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SafaEat</title>
-</head>
-<body>
 
-    <h1>¡BIENVENIDO A SAFA EAT! Tu sitio de confianza</h1>
-    <h2>Nuestros mejores precios</h2>
+{% include "barra_navegacion.html" %}
+
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+        <form id="formulario_busqueda" action="/safaEat/buscar" method="GET">
+            <div class="mb-3">
+                <label for="busqueda" class="form-label">Busca tu dirección</label>
+                <input type="search" class="form-control" id="busqueda" name="busqueda" aria-describedby="emailHelp">
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 </body>
 </html>

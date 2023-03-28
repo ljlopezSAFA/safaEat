@@ -7,6 +7,9 @@ class TipoRestaurante(models.TextChoices):
     ITALIANO = "Italiano"
     ORIENTAL = "Oriental"
 
+    def mostrar(self):
+        return self.value
+
 
 # Create your models here.
 class Restaurante(models.Model):
