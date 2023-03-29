@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from .carga_datos import *
 
@@ -8,13 +8,13 @@ def cargar_pagina_inicio(request):
 
 def listar_restaurantes(request):
     list_restaurantes = Restaurante.objects.all()
-    return render(request, 'listRestaurantes.html', {'restaurantes': list_restaurantes})
+    return render(request, 'restaurantes.html', {'restaurantes': list_restaurantes})
 
 
 def buscar_restaurante(request):
     lugar = request.GET.get("busqueda")
     list_restaurante = Restaurante.objects.filter(ciudad=lugar)
-    return render(request, 'listRestaurantes.html', {'restaurantes': list_restaurante})
+    return render(request, 'restaurantes.html', {'restaurantes': list_restaurante})
 
 
 def crear_restaurante(request):
@@ -24,10 +24,16 @@ def crear_restaurante(request):
     else:
         nuevo_restaurante = Restaurante()
         nuevo_restaurante.nombre = request.POST.get("nombre")
+        nuevo_restaurante.url = request.POST.get("url")
         nuevo_restaurante.ciudad = request.POST.get("ciudad")
         nuevo_restaurante.capacidad = int(request.POST.get("capacidad"))
         nuevo_restaurante.fecha_fundacion = request.POST.get("fecha_fundacion")
         nuevo_restaurante.tipo =TipoRestaurante.values[TipoRestaurante.values.index( request.POST.get("tipo_restaurante"))]
         Restaurante.save(nuevo_restaurante)
         return render(request, "inicio.html")
+
+def eliminar_restaurante(request,id):
+     restaurante = Restaurante.objects.get(id=id)
+     Restaurante.delete(restaurante)
+     return redirect('/safaEat/restaurantes')
 

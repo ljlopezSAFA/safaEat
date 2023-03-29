@@ -1,0 +1,33 @@
+
+{% include "barra_navegacion.html" %}
+ {# Icons Bootstrap #}
+      {% load bootstrap_icons %}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for rest in restaurantes %}
+    <div class="col">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <img src="{{ rest.url }}"
+                         class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ rest.nombre }}</h5>
+                        <p class="card-text"> {{ rest.ciudad }} </p>
+                        <p class="card-text"> {{ rest.tipo }} </p>
+                        <p class="card-text">  {% bs_icon 'people-fill' %} {{ rest.capacidad }}</p>
+                        <p class="card-text"><small
+                                class="text-body-secondary"> {% bs_icon 'calendar' %} {{ rest.fecha_fundacion|date:'d/m/Y' }}</small></p>
+                         <p class="card-text"> <a href="/safaEat/restaurantes/eliminar/{{rest.id}}">{% bs_icon 'trash' %}  </a> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+
+

@@ -1,39 +1,48 @@
 {% include "barra_navegacion.html" %}
 
-<form action="/safaEat/restaurantes/crear" method="post">
-    {% csrf_token %}
+<div class="container text-center">
+<br><br><br>
 
-    <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input id="nombre" name="nombre" type="text" class="form-control" placeholder="">
-    </div>
-    <div class="mb-3">
-        <label for="ciudad" class="form-label">Ciudad</label>
-        <input id="ciudad" name="ciudad" type="text" class="form-control" placeholder="">
-    </div>
-    <div class="mb-3">
-        <label for="capacidad" class="form-label">Capacidad</label>
-        <input id="capacidad" name="capacidad" type="number" class="form-control" placeholder="">
-    </div>
-    <div class="mb-3">
-        <label for="fecha_fundacion" class="form-label">Fecha Fundación</label>
-        <input id="fecha_fundacion" name="fecha_fundacion" type="date" class="form-control" placeholder="">
-    </div>
+    <form action="/safaEat/restaurantes/crear" method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input id="nombre" name="nombre" type="text" class="form-control" placeholder="">
+        </div>
+
+         <div class="mb-3">
+            <label for="url" class="form-label">Imagen url</label>
+            <input id="url" name="url" type="text" class="form-control" placeholder="">
+        </div>
+
+        <div class="mb-3">
+            <label for="ciudad" class="form-label">Ciudad</label>
+            <input id="ciudad" name="ciudad" type="text" class="form-control" placeholder="">
+        </div>
+        <div class="mb-3">
+            <label for="capacidad" class="form-label">Capacidad</label>
+            <input id="capacidad" name="capacidad" type="number" class="form-control" placeholder="">
+        </div>
+        <div class="mb-3">
+            <label for="fecha_fundacion" class="form-label">Fecha Fundación</label>
+            <input id="fecha_fundacion" name="fecha_fundacion" type="date" class="form-control" placeholder="">
+        </div>
 
 
+        <div class="mb-3">
+            <label for="tipo_restaurante" class="form-label">Tipo Restaurante</label>
+            <select id="tipo_restaurante" name="tipo_restaurante">
+                {% for tipo in tipos_restaurante %}
+                    <option value="{{ tipo }}"> {{ tipo }}</option>
+                {% endfor %}
+            </select>
 
-     <div class="mb-3">
-         <label for="tipo_restaurante" class="form-label">Tipo Restaurante</label>
-         <select id="tipo_restaurante" name="tipo_restaurante">
-             {% for tipo in tipos_restaurante %}
-                <option value="{{ tipo}}"> {{tipo}}</option>
-              {% endfor  %}
-         </select>
+        </div>
 
-    </div>
+        <div class="mb-3">
+            <input type="submit" value="Guardar">
+        </div>
 
-    <div class="mb-3">
-        <input type="submit" value="Guardar">
-    </div>
-
-</form>
+    </form>
+</div>

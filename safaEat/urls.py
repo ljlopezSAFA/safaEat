@@ -9,4 +9,5 @@ urlpatterns = [
     path('restaurantes/', listar_restaurantes),
     path('buscar/', buscar_restaurante),
     path('restaurantes/crear', crear_restaurante),
+    path('restaurantes/eliminar/<int:id>', eliminar_restaurante),
 ]

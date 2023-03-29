@@ -14,6 +14,7 @@ class TipoRestaurante(models.TextChoices):
 # Create your models here.
 class Restaurante(models.Model):
     nombre = models.CharField(max_length=150)
+    url = models.CharField(max_length=500, default="")
     ciudad = models.CharField(max_length=50)
     tipo = models.CharField(max_length=60, choices=TipoRestaurante.choices)
     capacidad = models.IntegerField()
