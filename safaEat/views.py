@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .carga_datos import *
+from .forms import  *
 
 # Create your views here.
 def cargar_pagina_inicio(request):
@@ -36,4 +37,21 @@ def eliminar_restaurante(request,id):
      restaurante = Restaurante.objects.get(id=id)
      Restaurante.delete(restaurante)
      return redirect('/safaEat/restaurantes')
+
+
+def registrar_usuario(request):
+    form = FormularioRegistro()
+    if request.method == "GET":
+        return render(request,"registrar.html",{"form": form})
+    #POST
+    else:
+        form = FormularioRegistro(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'inicio.html')
+        else:
+            return render(request, "registrar.html", {"form": form})
+
+
+
 
