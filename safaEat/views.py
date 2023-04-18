@@ -1,12 +1,12 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from .models import *
-from .carga_datos import *
+
 from .forms import  *
-from django.contrib.auth.hashers import  make_password
-from .decorators import  *
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import logout,login,authenticate
+from .models import *
+
+from .decorators import *
+from .forms import *
 
 
 # Create your views here.
@@ -25,7 +25,7 @@ def buscar_restaurante(request):
     return render(request, 'restaurantes.html', {'restaurantes': list_restaurante})
 
 
-@comprobar_permiso_gestor
+@rol_requerido(Roles.PROPIETARIO_RESTAURANTE)
 def crear_restaurante(request):
     if request.session.get("tiene_permiso") == True:
         if request.method == "GET":
@@ -90,6 +90,10 @@ def logearse(request):
                 messages.error(request, error)
             return render(request, "login.html", {"form": form})
 
+@user_required
+def desloguearse(request):
+    logout(request)
+    return render(request,"inicio.html")
 
 
 

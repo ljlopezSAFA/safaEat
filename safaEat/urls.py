@@ -11,6 +11,6 @@ urlpatterns = [
     path('restaurantes/crear', crear_restaurante),
     path('restaurantes/eliminar/<int:id>', eliminar_restaurante),
     path('login/', logearse, name= "login"),
-    path('logout/', buscar_restaurante , name= "logout"),
+    path('logout/', desloguearse , name= "logout"),
     path('register/', registrar_usuario, name= "register"),
 ]

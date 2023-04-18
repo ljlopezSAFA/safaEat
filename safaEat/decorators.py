@@ -1,22 +1,26 @@
+from functools import wraps
+
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect,render
-from .models import *
+from django.shortcuts import redirect, render
+
 
 def user_required(view_func):
-    funcion_login_required = login_required(view_func)
-    def wrapper(request,*args,**kwargs):
+    @login_required
+    def wrapper(request, *args, **kwargs):
         if not request.user.is_active:
-            return redirect('login')
-        return funcion_login_required(request,*args, **kwargs)
+            return render(request, "login.html")
+        return view_func(request, *args, **kwargs)
     return wrapper
 
+def rol_requerido(rol_requerido):
 
-def comprobar_permiso_gestor(view_func):
-    def wrapper(request,*args,**kwargs):
-        if not request.user.rol == Roles.PROPIETARIO_RESTAURANTE:
-            request.session['tiene_permiso'] = False
-            return render(request,"")
-        else:
-            request.session['tiene_permiso'] = True
-            return render(request, "")
-    return wrapper
+    def decorator(view_func):
+        @wraps(view_func)
+
+        def _wrapped_view(request, *args, **kwargs):
+            if request.user.is_authenticated and request.user.rol == rol_requerido:
+                return view_func(request, *args, **kwargs)
+            else:
+                return render(request, 'error.html')
+        return _wrapped_view
+    return decorator
