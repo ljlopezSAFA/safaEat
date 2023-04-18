@@ -1,0 +1,52 @@
+{% include "barra_navegacion.html" %}
+
+
+<div class="table-container">
+    <h1 class="title is-2" style="align-content: center"> Productos</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th><abbr title="Imagen"></abbr></th>
+            <th><abbr title="Nombre">Nombre</abbr></th>
+            <th><abbr title="Precio">Precio</abbr></th>
+            <th><abbr title="Acciones">Acciones</abbr></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for producto in productos %}
+            <tr>
+                <th>
+                    <figure class="image is-128x128">
+                        <img class="is-rounded" src="{{ producto.url }}" alt="">
+                    </figure>
+                </th>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>
+                 {% if user is not None and  user.rol == "Cliente" %}
+                    <div class="buttons">
+                        <a href="/safaEat/restaurantes/productos/comprar/{{producto.id}}">
+                            <button class="button is-primary">Comprar</button>
+                        </a>
+                    </div>
+                {% endif %}
+
+                 </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% if user is not None and  user.rol == "Propietario" or user.rol == "Admin" %}
+        <div class="buttons">
+            <a href="/safaEat/restaurantes/productos/crear/{{ rest.id }}">
+                <button class="button is-primary">Crear Producto</button>
+            </a>
+        </div>
+    {% endif %}
+
+</div>

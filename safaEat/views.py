@@ -27,7 +27,6 @@ def buscar_restaurante(request):
 
 @rol_requerido(Roles.PROPIETARIO_RESTAURANTE)
 def crear_restaurante(request):
-    if request.session.get("tiene_permiso") == True:
         if request.method == "GET":
             return render(request, 'crear_restaurante.html', {'tipos_restaurante': TipoRestaurante.values})
         else:
@@ -40,13 +39,17 @@ def crear_restaurante(request):
             nuevo_restaurante.tipo =TipoRestaurante.values[TipoRestaurante.values.index( request.POST.get("tipo_restaurante"))]
             Restaurante.save(nuevo_restaurante)
             return render(request, "inicio.html")
-    else:
-        return render(request, "inicio.html")
 
 def eliminar_restaurante(request,id):
      restaurante = Restaurante.objects.get(id=id)
      Restaurante.delete(restaurante)
      return redirect('/safaEat/restaurantes')
+
+
+def ver_productos(request, id):
+    restaurante = Restaurante.objects.get(id=id)
+    productos = Producto.objects.filter(restaurante=restaurante)
+    return render(request, "productos.html", {"productos": productos, "rest": restaurante })
 
 
 def registrar_usuario(request):
@@ -93,7 +96,34 @@ def logearse(request):
 @user_required
 def desloguearse(request):
     logout(request)
+    request.session.delete()
     return render(request,"inicio.html")
 
+@rol_requerido(Roles.PROPIETARIO_RESTAURANTE)
+def crear_producto(request,id):
+        if request.method == "GET":
+            return render(request, 'crear_producto.html')
+        else:
+            nuevo_producto = Producto()
+            nuevo_producto.nombre = request.POST.get("nombre")
+            nuevo_producto.url = request.POST.get("url")
+            nuevo_producto.precio = request.POST.get("precio")
+            nuevo_producto.restaurante = Restaurante.objects.get(id=id)
+            Producto.save(nuevo_producto)
+            return ver_productos(request, id)
 
+def comprar_producto(request,id):
+    producto = Producto.objects.get(id=id)
 
+    if producto is not None:
+        if 'carrito'  not in request.session :
+            request.session["carrito"] = dict()
+
+        #comprobar que el producto está o no en la lista
+        if str(producto.id) in list(request.session["carrito"].keys()):
+            cantidad = request.session["carrito"][str(producto.id)]
+            request.session["carrito"][str(producto.id)] = cantidad +1
+        else:
+            request.session["carrito"][str(producto.id)] = 1
+
+    return cargar_pagina_inicio(request)

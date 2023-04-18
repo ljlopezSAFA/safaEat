@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'safaEat',
     'bootstrap4',
-    'django_bootstrap_icons'
+    'django_bootstrap_icons',
+    'bulma'
 ]
 
 MIDDLEWARE = [

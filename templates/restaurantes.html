@@ -9,8 +9,9 @@
         <div class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-12">
-                    <img src="{{ rest.url }}"
-                         class="img-fluid rounded-start" alt="...">
+                    <figure class="image is-1by1">
+                        <img class="is-rounded" src="{{ rest.url }}" alt="">
+                    </figure>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -20,7 +21,14 @@
                         <p class="card-text">  {% bs_icon 'people-fill' %} {{ rest.capacidad }}</p>
                         <p class="card-text"><small
                                 class="text-body-secondary"> {% bs_icon 'calendar' %} {{ rest.fecha_fundacion|date:'d/m/Y' }}</small></p>
-                         <p class="card-text"> <a href="/safaEat/restaurantes/eliminar/{{rest.id}}">{% bs_icon 'trash' %}  </a> </p>
+
+                        {% if user is not None and  user.rol == "Propietario" or user.rol == "Admin" %}
+                            <p class="card-text"><a
+                                    href="/safaEat/restaurantes/eliminar/{{ rest.id }}">{% bs_icon 'trash' %}  </a></p>
+                        {% endif %}
+
+                         <p class="card-text"> <a href="/safaEat/restaurantes/productos/{{rest.id}}">{% bs_icon 'basket' %}  </a> </p>
+
                     </div>
                 </div>
             </div>
@@ -28,6 +36,5 @@
     </div>
 {% endfor %}
 </div>
-
 
 

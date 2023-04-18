@@ -1,0 +1,28 @@
+{% include "barra_navegacion.html" %}
+<br><br><br>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <input id="restaurante" name="restaurante" type="hidden" value="{{restaurante}}">
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input id="nombre" name="nombre" type="text" class="form-control" placeholder="">
+        </div>
+
+         <div class="mb-3">
+            <label for="url" class="form-label">Imagen url</label>
+            <input id="url" name="url" type="text" class="form-control" placeholder="">
+        </div>
+
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input id="precio" name="precio" type="number" class="form-control" placeholder="">
+        </div>
+
+        <div class="mb-3">
+            <input type="submit" value="Guardar">
+        </div>
+
+    </form>

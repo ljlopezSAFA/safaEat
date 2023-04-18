@@ -13,14 +13,11 @@ def user_required(view_func):
     return wrapper
 
 def rol_requerido(rol_requerido):
-
     def decorator(view_func):
-        @wraps(view_func)
-
-        def _wrapped_view(request, *args, **kwargs):
-            if request.user.is_authenticated and request.user.rol == rol_requerido:
+        def wrapper(request, *args, **kwargs):
+            if request.user is not None and request.user.is_authenticated and request.user.rol == rol_requerido:
                 return view_func(request, *args, **kwargs)
             else:
                 return render(request, 'error.html')
-        return _wrapped_view
+        return wrapper
     return decorator

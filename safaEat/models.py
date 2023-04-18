@@ -67,6 +67,7 @@ class Restaurante(models.Model):
 class Producto(models.Model):
     nombre = models.CharField(max_length=150)
     precio = models.FloatField()
+    url = models.CharField(max_length=500, default="")
     restaurante = models.ForeignKey(Restaurante, on_delete=models.CASCADE)
 
     def __str__(self):
