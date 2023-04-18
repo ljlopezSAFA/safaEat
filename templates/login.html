@@ -1,0 +1,17 @@
+{% include "barra_navegacion.html" %}
+
+{% block content %}
+
+    <div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+    <a class="nav-item nav-link" href="{% url 'register' %}">
+                    Regístrate <i class="fas fa-sign-in-alt"></i>
+                </a>
+    </div>
+
+
+{% endblock %}
