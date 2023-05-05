@@ -1,6 +1,5 @@
 from django.contrib import messages
-
-from .forms import  *
+from .task import *
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .models import *
@@ -12,6 +11,7 @@ from .forms import *
 # Create your views here.
 @user_required
 def cargar_pagina_inicio(request):
+    tarea()
     return render(request, 'inicio.html')
 
 def listar_restaurantes(request):

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'safaEat',
     'bootstrap4',
     'django_bootstrap_icons',
-    'bulma'
+    'bulma',
+    'background_task'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'safaEat.Usuario'
+
+# django-background-tasks settings
+# Run tasks every 5 seconds
+BACKGROUND_TASK_RUN_EVERY = 5
+# Specify the number of tasks to run in parallel
+BACKGROUND_TASK_PARALLEL_THREADS = 4
