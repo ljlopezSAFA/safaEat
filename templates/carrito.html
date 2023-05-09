@@ -1,0 +1,50 @@
+{% include "barra_navegacion.html" %}
+
+
+<div class="table-container">
+    <h1 class="title is-2" style="align-content: center"> Productos</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th><abbr title="Imagen"></abbr></th>
+            <th><abbr title="Nombre">Nombre</abbr></th>
+            <th><abbr title="Precio">Precio</abbr></th>
+            <th><abbr title="Cantiad">Cantidad</abbr></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for producto in carrito.productos %}
+            <tr>
+                <th>
+                    <figure class="image is-128x128">
+                        <img class="is-rounded" src="{{ producto.url }}" alt="">
+                    </figure>
+                </th>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.cantidad }}</td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+        <tr>
+            <td> <h3><b>TOTAL</b></h3></td>
+            <td></td>
+            <td></td>
+            <td>{{ carrito.calcular_total }}</td>
+        </tr>
+
+    </table>
+
+    {% if user is not None and  user.rol == "Cliente"  %}
+        <div class="buttons">
+            <a href="">
+                <button class="button is-primary">Finalizar Compra</button>
+            </a>
+        </div>
+    {% endif %}
+
+</div>

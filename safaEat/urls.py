@@ -16,4 +16,5 @@ urlpatterns = [
     path('login/', logearse, name= "login"),
     path('logout/', desloguearse , name= "logout"),
     path('register/', registrar_usuario, name= "register"),
+    path('carrito/', ver_carrito, name="ver_carrito"),
 ]

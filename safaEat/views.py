@@ -3,9 +3,10 @@ from .task import *
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .models import *
-
+from .carrito import *
 from .decorators import *
 from .forms import *
+import json
 
 
 # Create your views here.
@@ -48,6 +49,7 @@ def eliminar_restaurante(request,id):
 
 def ver_productos(request, id):
     restaurante = Restaurante.objects.get(id=id)
+    request.session["id_restaurante"] = id
     productos = Producto.objects.filter(restaurante=restaurante)
     return render(request, "productos.html", {"productos": productos, "rest": restaurante })
 
@@ -114,16 +116,35 @@ def crear_producto(request,id):
 
 def comprar_producto(request,id):
     producto = Producto.objects.get(id=id)
+    carrito = Carrito()
 
-    if producto is not None:
-        if 'carrito'  not in request.session :
-            request.session["carrito"] = dict()
+    #Comprobar que en sesion está l variable "carrito"
+    if "carrito" in request.session:
+        carrito = carrito.from_dict(request.session["carrito"])
 
-        #comprobar que el producto está o no en la lista
-        if str(producto.id) in list(request.session["carrito"].keys()):
-            cantidad = request.session["carrito"][str(producto.id)]
-            request.session["carrito"][str(producto.id)] = cantidad +1
-        else:
-            request.session["carrito"][str(producto.id)] = 1
+    #Compruebo que el producto está en el carrito
+    if carrito.comprobar_producto_en_carrito(id):
+        producto_carrito = carrito.obtener_producto(id)
+        carrito.actualizar_producto(id, producto_carrito.cantidad + 1)
+    else:
+        producto_carrito = ProductoCarrito(producto.id, producto.url, producto.nombre, producto.precio, 1)
+        carrito.agregar_producto(producto_carrito)
 
-    return cargar_pagina_inicio(request)
+    request.session["carrito"] = carrito.to_dict()
+
+    return ver_productos(request, int(request.session["id_restaurante"]))
+
+
+def ver_carrito(request):
+    carrito = Carrito()
+    if "carrito" in request.session:
+        carrito = carrito.from_dict(request.session["carrito"])
+
+    return render(request, "carrito.html", {"carrito": carrito})
+
+
+
+
+
+
+

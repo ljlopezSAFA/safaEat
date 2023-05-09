@@ -102,7 +102,7 @@
       <div class="navbar-item">
         <div class="buttons">
          {% if user is not None and  user.rol == "Cliente" %}
-              <a class="button is-primary" href="{% url 'register' %}">
+              <a class="button is-primary" href="{% url 'ver_carrito' %}">
                 <i>{% bs_icon 'cart' %}</i>
             </a>
          {% endif %}
