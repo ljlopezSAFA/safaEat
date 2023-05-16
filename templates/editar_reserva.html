@@ -1,0 +1,39 @@
+{% include "barra_navegacion.html" %}
+<br><br><br>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+
+    <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha reserva</label>
+        <input id="fecha" name="fecha" type="datetime-local"
+               class="form-control" placeholder=""
+               value="{{ reserva.fecha_reserva|date:'Y-m-d' }}T{{ reserva.fecha_reserva|time:'H:i' }}">
+    </div>
+
+         <div class="mb-3">
+            <label for="num_personas" class="form-label">Numero de personas</label>
+            <input id="num_personas" name="num_personas" type="number"
+                   class="form-control" placeholder="" value="{{ reserva.num_personas }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="restaurante" class="form-label">Restaurante</label>
+            <select id="restaurante" name="restaurante" >
+                {% for resta in restaurantes %}
+                    {% if resta.id == reserva.restaurante.id %}
+                        <option value="{{resta.id}}" selected>{{resta}}</option>
+                    {% else %}
+                         <option value="{{resta.id}}">{{resta}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+            <input type="submit" value="Guardar">
+        </div>
+
+    </form>

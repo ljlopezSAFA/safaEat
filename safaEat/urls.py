@@ -17,4 +17,8 @@ urlpatterns = [
     path('logout/', desloguearse , name= "logout"),
     path('register/', registrar_usuario, name= "register"),
     path('carrito/', ver_carrito, name="ver_carrito"),
+    path('reservas/', ver_mis_reservas, name="reservas"),
+    path('reservas/crear/', crear_reserva, name="crear_reserva"),
+    path('reservas/eliminar/<int:id>', eliminar_reserva, name="eliminar_reserva"),
+    path('reservas/editar/<int:id>', editar_reserva, name="editar_reserva"),
 ]

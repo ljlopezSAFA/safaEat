@@ -71,3 +71,15 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre + "->" +  str(self.precio)
+
+
+class Reserva(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete= models.CASCADE)
+    restaurante = models.ForeignKey(Restaurante, on_delete= models.CASCADE)
+    fecha_reserva = models.DateTimeField()
+    num_personas = models.IntegerField()
+
+    def __str__(self):
+        return self.usuario.username + self.restaurante.nombre + str(self.fecha_reserva)
+
+

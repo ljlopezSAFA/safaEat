@@ -1,0 +1,55 @@
+{% include "barra_navegacion.html" %}
+
+
+<div class="table-container">
+    <h1 class="title is-2" style="align-content: center"> Reservas</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th> Nombre restaurante</th>
+            <th> Fecha reserva</th>
+            <th> Número Personas</th>
+             <th> Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for res in reservas %}
+            <tr>
+
+                <td>{{ res.restaurante.nombre }}</td>
+                <td>{{ res.fecha_reserva }}</td>
+                <td>{{ res.num_personas }}</td>
+
+
+                <td>
+
+                    <div class="buttons">
+                        <a href="/safaEat/reservas/editar/{{res.id}}">
+                            <button class="button is-primary">Editar</button>
+                        </a>
+
+                         <a href="/safaEat/reservas/eliminar/{{res.id}}">
+                            <button class="button is-primary">Eliminar</button>
+                        </a>
+                    </div>
+
+
+                 </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+        <div class="buttons">
+            <a href="{% url 'crear_reserva' %}">
+                <button class="button is-primary">Crear Reserva</button>
+            </a>
+        </div>
+
+
+</div>

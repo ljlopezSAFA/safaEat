@@ -142,9 +142,58 @@ def ver_carrito(request):
 
     return render(request, "carrito.html", {"carrito": carrito})
 
+@user_required
+def ver_mis_reservas(request):
+    usuario = request.user
+    lista_reservas = []
+
+    if usuario != None:
+        lista_reservas = Reserva.objects.filter(usuario = usuario)
+
+    return render(request, "reservas.html", {"reservas": lista_reservas })
+
+
+def crear_reserva(request):
+    listar_restaurantes = Restaurante.objects.all()
+
+    if request.method == "GET":
+        return render(request, "crear_reserva.html", {"restaurantes": listar_restaurantes})
+    else:
+        nueva_reserva = Reserva()
+        nueva_reserva.usuario = request.user
+        nueva_reserva.restaurante = Restaurante.objects.get(id=int(request.POST.get("restaurante")))
+        nueva_reserva.fecha_reserva = request.POST.get("fecha")
+        nueva_reserva.num_personas = request.POST.get("num_personas")
+        nueva_reserva.save()
+        return ver_mis_reservas(request)
+
+
+def eliminar_reserva(request,id):
+    reserva_eliminar = Reserva.objects.get(id=id)
+
+    if reserva_eliminar != None:
+        reserva_eliminar.delete()
+
+    return ver_mis_reservas(request)
 
 
 
+
+def editar_reserva(request,id):
+    listar_restaurantes = Restaurante.objects.all()
+    reserva_editar = Reserva.objects.get(id=id)
+
+    if request.method == "GET":
+        return render(request, "editar_reserva.html", {"restaurantes": listar_restaurantes,
+                                                      "reserva": reserva_editar})
+    else:
+        nueva_reserva = reserva_editar
+        nueva_reserva.usuario = request.user
+        nueva_reserva.restaurante = Restaurante.objects.get(id=int(request.POST.get("restaurante")))
+        nueva_reserva.fecha_reserva = request.POST.get("fecha")
+        nueva_reserva.num_personas = request.POST.get("num_personas")
+        nueva_reserva.save()
+        return ver_mis_reservas(request)
 
 
 
